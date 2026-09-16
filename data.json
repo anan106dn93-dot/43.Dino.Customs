@@ -1,40 +1,58 @@
 [
   {
-    "category": "QUYẾT ĐỊNH THỦ TƯỚNG / BỘ",
-    "items": [
-      {
-        "code": "31/2026/QĐ-TTg",
-        "title": "Danh mục hàng hóa nhập khẩu phải làm thủ tục hải quan tại cửa khẩu nhập",
-        "issuer": "Thủ tướng Chính phủ",
-        "articles": "5 điều",
-        "file": "docs/31-2026-QD-TTg.docx"
-      },
-      {
-        "code": "1182/QĐ-BCT",
-        "title": "Danh mục mặt hàng nhập khẩu (kèm mã HS) thực hiện kiểm tra chuyên ngành của Bộ Công Thương",
-        "issuer": "Bộ Công Thương",
-        "articles": "4 điều",
-        "file": "docs/1182-QD-BCT.docx"
-      }
-    ]
+    "id": "30_2020_ND-CP_436532",
+    "title": "Nghị định 30/2020/NĐ-CP về công tác văn thư",
+    "issuer": "Chính phủ",
+    "file": "docs/30_2020_ND-CP_436532.docx"
   },
   {
-    "category": "VĂN BẢN NỘI BỘ NGÀNH HẢI QUAN",
-    "items": [
-      {
-        "code": "1357/QĐ-TCHQ",
-        "title": "Bảng mã loại hình xuất khẩu, nhập khẩu và hướng dẫn sử dụng",
-        "issuer": "Tổng cục Hải quan",
-        "articles": "4 điều",
-        "file": "docs/1357-QD-TCHQ.docx"
-      },
-      {
-        "code": "702/QĐ-CHQ",
-        "title": "Quy trình thủ tục hải quan theo mô hình thông quan tập trung tại Chi cục Hải quan khu vực III",
-        "issuer": "Cục Hải quan",
-        "articles": "16 điều",
-        "file": "docs/702-QD-CHQ.docx"
-      }
-    ]
+    "id": "31_2026_QD-TTg_712839",
+    "title": "Quyết định 31/2026/QĐ-TTg về danh mục hàng hóa nhập khẩu phải làm thủ tục hải quan tại cửa khẩu nhập",
+    "issuer": "Thủ tướng Chính phủ",
+    "file": "docs/31_2026_QD-TTg_712839.docx"
+  },
+  {
+    "id": "37_2026_ND-CP_691138",
+    "title": "Nghị định 37/2026/NĐ-CP quy định chi tiết thi hành một số điều của Luật Hải quan",
+    "issuer": "Chính phủ",
+    "file": "docs/37_2026_ND-CP_691138.docx"
+  },
+  {
+    "id": "54_VBHN-VPQH_698682",
+    "title": "Văn bản hợp nhất 54/VBHN-VPQH Luật Hải quan",
+    "issuer": "Văn phòng Quốc hội",
+    "file": "docs/54_VBHN-VPQH_698682.docx"
+  },
+  {
+    "id": "85_2026_TT-BTC_713423",
+    "title": "Thông tư 85/2026/TT-BTC quy định về thủ tục hải quan",
+    "issuer": "Bộ Tài chính",
+    "file": "docs/85_2026_TT-BTC_713423.docx"
+  },
+  {
+    "id": "104_2026_TT-BTC_716191",
+    "title": "Thông tư 104/2026/TT-BTC sửa đổi, bổ sung quy định về thủ tục hải quan",
+    "issuer": "Bộ Tài chính",
+    "file": "docs/104_2026_TT-BTC_716191.docx"
+  },
+  {
+    "id": "108_2025_QH15_675268",
+    "title": "Luật 108/2025/QH15 sửa đổi, bổ sung một số điều của Luật Hải quan",
+    "issuer": "Quốc hội",
+    "file": "docs/108_2025_QH15_675268.docx"
+  },
+  {
+    "id": "128_2026_TT-BTC_723259",
+    "title": "Thông tư 128/2026/TT-BTC hướng dẫn về quản lý thuế đối với hàng hóa xuất khẩu, nhập khẩu",
+    "issuer": "Bộ Tài chính",
+    "file": "docs/128_2026_TT-BTC_723259.docx"
+  },
+  {
+    "id": "292_ND_QLNT",
+    "title": "Nghị định hướng dẫn Luật Quản lý ngoại thương",
+    "issuer": "Chính phủ",
+    "file": "docs/292_ND_QLNT.docx"
+  }
+]
   }
 ]
