@@ -1,0 +1,40 @@
+[
+  {
+    "category": "QUYẾT ĐỊNH THỦ TƯỚNG / BỘ",
+    "items": [
+      {
+        "code": "31/2026/QĐ-TTg",
+        "title": "Danh mục hàng hóa nhập khẩu phải làm thủ tục hải quan tại cửa khẩu nhập",
+        "issuer": "Thủ tướng Chính phủ",
+        "articles": "5 điều",
+        "file": "docs/31-2026-QD-TTg.docx"
+      },
+      {
+        "code": "1182/QĐ-BCT",
+        "title": "Danh mục mặt hàng nhập khẩu (kèm mã HS) thực hiện kiểm tra chuyên ngành của Bộ Công Thương",
+        "issuer": "Bộ Công Thương",
+        "articles": "4 điều",
+        "file": "docs/1182-QD-BCT.docx"
+      }
+    ]
+  },
+  {
+    "category": "VĂN BẢN NỘI BỘ NGÀNH HẢI QUAN",
+    "items": [
+      {
+        "code": "1357/QĐ-TCHQ",
+        "title": "Bảng mã loại hình xuất khẩu, nhập khẩu và hướng dẫn sử dụng",
+        "issuer": "Tổng cục Hải quan",
+        "articles": "4 điều",
+        "file": "docs/1357-QD-TCHQ.docx"
+      },
+      {
+        "code": "702/QĐ-CHQ",
+        "title": "Quy trình thủ tục hải quan theo mô hình thông quan tập trung tại Chi cục Hải quan khu vực III",
+        "issuer": "Cục Hải quan",
+        "articles": "16 điều",
+        "file": "docs/702-QD-CHQ.docx"
+      }
+    ]
+  }
+]

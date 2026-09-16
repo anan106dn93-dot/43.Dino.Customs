@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tra cứu Văn bản Chuyên ngành Hải quan</title>
+  <!-- Thư viện đọc file DOCX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <!-- Font & Icon -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #121316;
+      --card-bg: #1a1c23;
+      --card-hover: #222530;
+      --accent-purple: #6b62ff;
+      --text-main: #e1e3e8;
+      --text-muted: #8c92a4;
+      --category-title: #b5925d;
+      --border-color: #2a2d39;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 40px; }
+
+    /* Header Nav Bar */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background-color: #16181f; border-bottom: 1px solid var(--border-color);
+      padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .menu-btn { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; }
+    .brand-title { font-size: 16px; font-weight: bold; color: #fff; line-height: 1.2; }
+    .brand-sub { font-size: 11px; color: var(--text-muted); }
+
+    .search-box {
+      flex: 1; max-width: 320px; position: relative;
+    }
+    .search-box input {
+      width: 100%; background: #252834; border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 8px 12px 8px 34px; color: #fff; font-size: 13px;
+    }
+    .search-box input:focus { outline: none; border-color: var(--accent-purple); }
+    .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 13px; }
+
+    /* Main Container */
+    .container { max-width: 600px; margin: 0 auto; padding: 16px; }
+    .category-group { margin-bottom: 24px; }
+    .category-header {
+      font-size: 12px; font-weight: 700; color: var(--category-title);
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
+      padding-bottom: 6px; border-bottom: 1px solid #232632;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border-color);
+      border-radius: 10px; padding: 14px; margin-bottom: 12px;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .card:hover { background: var(--card-hover); border-color: #383c4d; }
+    .card-code { font-size: 13px; font-weight: 700; color: var(--accent-purple); margin-bottom: 6px; }
+    .card-title { font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--text-main); margin-bottom: 8px; }
+    .card-meta { font-size: 12px; color: var(--text-muted); }
+
+    /* Modal hiển thị nội dung Word */
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      z-index: 200; overflow-y: auto; padding: 20px 10px;
+    }
+    .modal-content {
+      background: #1e2029; max-width: 800px; margin: 0 auto; border-radius: 12px;
+      padding: 24px; border: 1px solid var(--border-color); position: relative;
+    }
+    .close-btn {
+      position: absolute; right: 16px; top: 16px; background: #2a2d39; border: none;
+      color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+    }
+    .doc-viewer { margin-top: 20px; line-height: 1.6; font-size: 15px; color: #d1d5db; }
+    .doc-viewer h1, .doc-viewer h2, .doc-viewer h3 { color: #fff; margin: 16px 0 8px 0; }
+    .doc-viewer p { margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="header">
+    <div class="brand">
+      <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+      <div>
+        <div class="brand-title">Tra cứu Văn bản</div>
+        <div class="brand-sub">Chuyên ngành Hải quan</div>
+      </div>
+    </div>
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Tìm theo điều, khoá..." onkeyup="filterDocs()">
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" id="appContent">
+    <p style="text-align: center; color: var(--text-muted);">Đang tải dữ liệu văn bản...</p>
+  </div>
+
+  <!-- Popup Viewer -->
+  <div id="docModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      <h2 id="docModalTitle" style="color: var(--accent-purple); font-size: 18px;"></h2>
+      <div id="docViewer" class="doc-viewer">Đang đọc tập tin docx...</div>
+    </div>
+  </div>
+
+  <script>
+    let rawData = [];
+
+    // Tải danh sách file từ data.json
+    async function initApp() {
+      try {
+        const res = await fetch('data.json');
+        rawData = await res.json();
+        renderDocs(rawData);
+      } catch (err) {
+        document.getElementById('appContent').innerHTML = '<p style="color:red">Không thể tải data.json. Hãy kiểm tra đường dẫn file.</p>';
+      }
+    }
+
+    // Hiển thị danh sách Card
+    function renderDocs(data) {
+      const container = document.getElementById('appContent');
+      container.innerHTML = '';
+
+      data.forEach(group => {
+        if (group.items.length === 0) return;
+        
+        const catElem = document.createElement('div');
+        catElem.className = 'category-group';
+        
+        let itemsHTML = group.items.map(item => `
+          <div class="card" onclick="openDoc('${item.file}', '${item.title}')">
+            <div class="card-code">${item.code}</div>
+            <div class="card-title">${item.title}</div>
+            <div class="card-meta">${item.issuer} • ${item.articles}</div>
+          </div>
+        `).join('');
+
+        catElem.innerHTML = `
+          <div class="category-header">${group.category}</div>
+          ${itemsHTML}
+        `;
+        container.appendChild(catElem);
+      });
+    }
+
+    // Đọc & Đưa nội dung file .docx vào Modal
+    async function openDoc(filePath, title) {
+      document.getElementById('docModalTitle').innerText = title;
+      document.getElementById('docViewer').innerHTML = '<p><i class="fa-solid fa-spinner fa-spin"></i> Đang đọc file Word (.docx)...</p>';
+      document.getElementById('docModal').style.display = 'block';
+
+      try {
+        const response = await fetch(filePath);
+        const arrayBuffer = await response.arrayBuffer();
+        const result = await mammoth.convertToHtml({ arrayBuffer: arrayBuffer });
+        document.getElementById('docViewer').innerHTML = result.value || '<p>File rỗng hoặc không đọc được.</p>';
+      } catch (err) {
+        document.getElementById('docViewer').innerHTML = `<p style="color:#ff6b6b">Lỗi: Không tải được file <b>${filePath}</b>. Hãy đảm bảo bạn đã copy file .docx vào đúng thư mục docs/.</p>`;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('docModal').style.display = 'none';
+    }
+
+    // Thanh tìm kiếm nhanh
+    function filterDocs() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = rawData.map(group => ({
+        category: group.category,
+        items: group.items.filter(item => 
+          item.code.toLowerCase().includes(query) ||
+          item.title.toLowerCase().includes(query) ||
+          item.issuer.toLowerCase().includes(query)
+        )
+      }));
+      renderDocs(filtered);
+    }
+
+    window.onload = initApp;
+  </script>
+</body>
+</html>
